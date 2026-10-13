@@ -26,35 +26,47 @@ public class Main {
         //minDistCalc(points,calc);
 
         ICalcDist euclid = new EuclidDist();
-        int euclidMin = minDistCalc(points,euclid);
+        int euclidMin = minDistCalc(points, euclid);
         ICalcDist neiman = new NeimanDist();
-        int neimanMin = minDistCalc(points,neiman);
+        int neimanMin = minDistCalc(points, neiman);
         ICalcDist mur = new MurDist();
-        int murMin = minDistCalc(points,mur);
+        int murMin = minDistCalc(points, mur);
 
 
         System.out.println("Расстояние по Евклиду " + euclidMin);
         System.out.println("Расстояние по фон Нейману " + neimanMin);
-        System.out.println("Расстояние по Муру "+ murMin);
+        System.out.println("Расстояние по Муру " + murMin);
+
+
+//        mu.calcDist(points);
+//        ICalcDist m = (points)->minDistCalc(points,minDistCalc(points));
+        //       m=minDistCalc(points,ICalcDist)
+        //   }   System.out.println("по муру "+m);
+
+        //findShortestDistance(points,(p1,p2)->Math.max(Math.abs(p2.x- p1.x),Math.abs(p2.y- p1.y));)
+
     }
 
-    //findShortestDistance(points,(p1,p2)->Math.max(Math.abs(p2.x- p1.x),Math.abs(p2.y- p1.y));)
-
-
-
-    private static int minDistCalc(List<Point> points,ICalcDist calc) {
+    private static int minDistCalc(List<Point> points, ICalcDist calc) {
         // функция принимает список точек, перебирает пары, вычисляет расстояние и возвращием минимальное
-        int minDist=Integer.MAX_VALUE;
-        for (int i = 0; i< points.size()-1; i++) {
-            for (int j = i + 1; j < points.size(); j++){
+        Point minP1 = null;
+        Point minP2 = null;
+        int minDist = Integer.MAX_VALUE;
+        for (int i = 0; i < points.size() - 1; i++) {
+            for (int j = i + 1; j < points.size(); j++) {
 
-                int dist = (int) calc.calcDist (points.get(i), points.get(j));
+                int dist = (int) calc.calcDist(points.get(i), points.get(j));
                 if (dist < minDist) {
-                    minDist=dist;
+                    minDist = dist;
+                    minP1 = points.get(i);
+                    minP2 = points.get(j);
 
                 }
-            }}
-
+            }
+        }
+        System.out.println("Минимальное расстояние: " + calc + minDist);
+        System.out.println("Точка 1: (" + minP1.x + ", " + minP1.y + ")");
+        System.out.println("Точка 2: (" + minP2.x + ", " + minP2.y + ")");
         return minDist;
     }
 
@@ -80,5 +92,6 @@ public class Main {
         for (Point p : points) {
             System.out.println(p);
         }
+
     }
 }
